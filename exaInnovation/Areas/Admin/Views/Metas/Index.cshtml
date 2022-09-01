@@ -1,0 +1,109 @@
+﻿@model exaInnovation.Models.ViewModels.MetasViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/><br/>
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Metas </h2>
+        </div>
+        <div class="col-6 text-right">
+          @* <partial name="_CreateButtonPartial" />*@
+          
+        </div>
+    </div>
+    <br/>
+    <div>
+        <div class="row">
+            <div class="col-sm-12">         
+                <div class="row">            
+                    <div class="col-8 col-sm-4 border backgroundWhite">
+                        <div class="col-6 text-left">
+                         <p>
+                            <a data-url="Metas/Create"
+                            class="btn btn-primary popup" 
+                            data-toggle="modal"
+                            data-target="#modal-create-meta" >
+                            <i class="fas fa-plus"></i> &nbsp;  Create New </a>
+                        </p>               
+                        </div>
+                    <div>
+                    @if(Model._Metas.Count() > 0)
+                    {
+                    <div>
+                        @foreach(var item in Model._Metas)
+                        {
+                        <p class="twovalues">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                         @Html.DisplayFor(m => item.Nombre)    
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <partial name="_TableButtonPartial" model="item.Id" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    @Html.DisplayFor(m=>item.Porcentaje)
+                                </div>
+                                <div class="row">
+                                <div class="progress">
+                                    <div class="progress-bar" 
+                                            role="progressbar" 
+                                            style="width: @Html.DisplayFor(m=>item.Porcentaje);" 
+                                            aria-valuenow="@Html.DisplayFor(m=>item.Porcentaje)" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100">@Html.DisplayFor(m=>item.Porcentaje)%</div>
+                             
+                                </div>
+                                    
+                                </div>                                          
+                            </div>
+                        </p>    
+                        
+                        <button data-url='@Url.Action("Index","Tareas", new { id = item.Id } )'
+                            class="js-reload-details">Reload</button>
+                        }
+                    </div>
+                    }
+                  </div>
+              </div>
+              <div class="col-4 col-sm-8 border backgroundWhite">                
+                <div id="detailsDiv">                     
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+
+</div>
+<div aria-hidden="true" aria-labelledby="modal-create-meta-label" 
+     role="dialog" tabindex="-1" 
+     id="modal-create-meta" class="modal fade">  
+    <div class="modal-dialog"> 
+        Modal
+    </div>  
+</div>
+@section Scripts{  
+    <script src="~/js/modalCreate.js" asp-append-version="true"></script>  
+    <script>
+
+    $('.js-reload-details').on('click', function(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+
+        var $detailDiv = $('#detailsDiv'),
+            url = $(this).data('url');
+
+        $.get(url, function(data) {
+            $detailDiv.replaceWith(data);         
+        });
+    });
+    </script>
+    
+}  

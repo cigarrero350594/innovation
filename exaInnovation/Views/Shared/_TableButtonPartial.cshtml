@@ -1,0 +1,25 @@
+﻿@model int  
+
+<td style="width:150px">
+    <div class="btn-group" role="group">
+          <a data-url="Metas/Edit"
+                            class="btn btn-primary popup" 
+                            data-toggle="modal"
+                            data-target="#modal-create-meta" 
+                           data-id="@Model">
+            <i class="fas fa-edit"></i>
+        </a>
+
+        @* <a class="btn btn-primary text-white" asp-action="Edit" asp-route-Id="@Model">
+            <i class="fas fa-edit"></i>
+        </a>
+*@
+        <a data-url="Metas/Delete"
+                            class="btn btn-primary popup" 
+                            data-toggle="modal"
+                            data-target="#modal-create-meta" 
+                            data-id="@Model">
+            <i class="fas fa-trash-alt"></i>
+        </a>
+    </div>
+</td>

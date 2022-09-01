@@ -1,0 +1,19 @@
+﻿.length {
+    border: 2px solid #00A4BD;
+    padding: 10px;
+}
+
+.percent {
+    border: 2px solid #00A4BD;
+    padding: 5%;
+}
+
+.twovalues {
+    border: 2px solid #00A4BD;
+    padding: 25px 2px;
+}
+
+/* Other styling */
+p {
+    font-family: Avenir;
+}

@@ -1,0 +1,71 @@
+﻿@model exaInnovation.Models.ViewModels.TareasViewModel
+<!--Modal Body Start-->  
+  
+ 
+  
+        <!--Modal Header Start-->  
+        
+        <!--Modal Header End-->  
+  
+  
+        <form enctype="multipart/form-data">                            
+                <div class="modal-body form-horizontal">                     
+                    <div class="form-group row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="_metas.Id" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @if (Model._metas.Tareas.Count() > 0)
+                        {
+                            <table class="table table-striped border">
+                                <tr class="table-secondary">
+                                    <th>
+                                        Prioridad
+                                    </th>
+                                    <th>
+                                        Tarea
+                                    </th>
+                                    <th>
+                                        FechaCreacion
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>                                    
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                @foreach (var item in Model._metas.Tareas)
+                                {
+                                <tr>
+                                    <th>
+                                        <div class="inner">
+                                              <input asp-for="@item.Prioridad" type="submit" value="submit" />
+                                        </div>
+                                    </th>
+                                    <td>
+                                        @Html.DisplayFor(m => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => item.FechaCreacion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => item.Estado)
+                                    </td>                                   
+                                    <td>
+                                        <partial name="_TableButtonPartial" model="item.Id" />
+                                    </td>
+                                </tr>
+                                }
+                            </table>
+                        }
+                    </div>                                                          
+                </div>  
+                <!--Modal Footer Start-->  
+               <div class="form-group row">
+                    <div class="col-5 offset-2">
+                        <partial name="_EditAndBackToListButton" />
+                    </div>
+                </div>
+                <!--Modal Footer End-->  
+           </form>  
+  
+ 
