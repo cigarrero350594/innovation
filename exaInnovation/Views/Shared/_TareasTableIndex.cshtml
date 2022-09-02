@@ -6,66 +6,122 @@
         <!--Modal Header Start-->  
         
         <!--Modal Header End-->  
-  
-  
-        <form enctype="multipart/form-data">                            
-                <div class="modal-body form-horizontal">                     
-                    <div class="form-group row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="_metas.Id" />
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        @if (Model._metas.Tareas.Count() > 0)
-                        {
-                            <table class="table table-striped border">
-                                <tr class="table-secondary">
-                                    <th>
-                                        Prioridad
-                                    </th>
-                                    <th>
-                                        Tarea
-                                    </th>
-                                    <th>
-                                        FechaCreacion
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>                                    
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                @foreach (var item in Model._metas.Tareas)
-                                {
-                                <tr>
-                                    <th>
-                                        <div class="inner">
-                                              <input asp-for="@item.Prioridad" type="submit" value="submit" />
-                                        </div>
-                                    </th>
-                                    <td>
-                                        @Html.DisplayFor(m => item.Nombre)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(m => item.FechaCreacion)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(m => item.Estado)
-                                    </td>                                   
-                                    <td>
-                                        <partial name="_TableButtonPartial" model="item.Id" />
-                                    </td>
-                                </tr>
-                                }
-                            </table>
-                        }
-                    </div>                                                          
-                </div>  
-                <!--Modal Footer Start-->  
-               <div class="form-group row">
-                    <div class="col-5 offset-2">
-                        <partial name="_EditAndBackToListButton" />
-                    </div>
-                </div>
-                <!--Modal Footer End-->  
-           </form>  
-  
- 
+<div class="border backgroundWhite">
+    @*<div class="col-4 text-left">
+    <p>
+        <a data-url="Tareas/Create"
+            class="btn btn-primary popup" 
+            data-toggle="modal"
+            data-target="#modal-create-meta"
+            id="tarea-create">
+            <i class="fas fa-plus"></i> &nbsp;  Agregar Tarea
+        </a>
+    </p>
+    </div>*@
+@*    <div class="row">
+        <div class="col-6">
+            <input type="submit" class="btn btn-info form-control" value="Create" />
+        </div>
+        <div class="col-6">
+            <a asp-for="_metas.Id" asp-action="Create" asp-controller="Tareas"  
+                data-toggle="modal"
+                data-target="#modal-create-meta"
+            class="btn btn-success form-control">Back to List</a>
+        </div>
+    </div>*@
+    <div asp-validation-summary="ModelOnly" class="text-danger">
+    </div>
+    <input type="hidden" asp-for="_metas.Id" />
+
+    @if (Model._metas.Tareas.Count() > 0)
+    {
+        <table id="DataTable" class="table table-striped border">
+            <tr class="table-secondary">
+                <th><input type="checkbox" id="checkAll"/></th>
+                <th>
+                    Prioridad
+                </th>
+                <th>
+                    Tarea
+                </th>
+                <th>
+                    FechaCreacion
+                </th>
+                <th>
+                    Estado
+                </th>                                    
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model._metas.Tareas)
+            {
+            <tr>
+                <td><input type="checkbox" class="checkBox" 
+                        value="@item.Id" /></td>
+
+                <td>
+                            <input type="checkbox" id="checkBoxAll" class="custom-checkbox" />
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.FechaCreacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Estado)
+                </td>                                                  
+            </tr>
+            }
+        </table>
+    }
+    else
+    {
+          <p>No category exists...</p>
+    }
+</div>
+<div aria-hidden="true" aria-labelledby="modal-create-tarea-label" 
+     role="dialog" tabindex="-1" 
+     id="modal-create-tarea" class="modal fade">  
+    <div class="modal-dialog"> 
+        Modal 2
+    </div>  
+</div>
+ @section Scripts{  
+          <script src="https://code.jquery.com/jquery-3.3.1.js"
+              integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+              crossorigin="anonymous"></script>
+<script>
+$(function() {
+    $('.popup').on('click', function(evt) {
+        console.log('llamaIndiceCreate1');
+        llamaIndiceCreate(this);
+        console.log('llamaIndiceCreate');
+
+    });
+     function llamaIndiceCreate(reff) {
+       var url = $(reff).data('url');
+                var id = $(reff).attr('data-id');
+                console.log('Inicializar 1');
+                console.log(id);
+                if (id != null) {
+                    $.get(url + '/' + id).done(function (data) {
+                        console.log('Inicializa2');
+                        $('#modal-create-tarea').find(".modal-dialog").html(data);
+                        $('#modal-create-tarea> .modal', data).modal("show");
+                    });
+                }
+                else {
+                    $.get(url).done(function (data) {
+
+                        console.log('Inicializa3');
+                        $('#modal-create-tarea').find(".modal-dialog").html(data);
+                        $('#modal-create-tarea > .modal', data).modal("show");
+                    });
+                }
+    }
+}
+
+   
+    </script>
+ }

@@ -1,20 +1,22 @@
-﻿@model exaInnovation.Models.Metas
+﻿@model exaInnovation.Models.Tareas
 <!--Modal Body Start-->  
   
     <div class="modal-content">  
   
         <!--Modal Header Start-->  
         <div class="modal-header">  
-            <h4 class="modal-title">Agregar Meta</h4>  
+            <h4 class="modal-title">Agregar Tarea</h4>  
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>  
         </div>  
         <!--Modal Header End-->      
         <form asp-action="Create" 
-                    asp-controller="Metas" 
-                    method="post" enctype="multipart/form-data">  
-                         
+              asp-controller="Tareas" 
+              method="post" enctype="multipart/form-data">  
+    
+
+                    
                  @Html.AntiForgeryToken()  
                 <div class="modal-body form-horizontal">  
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,45 +31,12 @@
                     </div>                           
                 </div>  
                 <!--Modal Footer Start-->  
-               <div class="form-group row">
+                <div class="form-group row">
                     <div class="col-5 offset-2">
                         <partial name="_CreateAndBackToListButton" />
                     </div>
-                </div>
+                </div>             
                 <!--Modal Footer End-->  
-           </form>  
+        </form>  
   
     </div>  
-@section Scripts{
-
-     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script>
-        $(function () {          
-            $("#datepicker").datepicker({
-                format: 'mm/dd/yyyy',
-                startDate: '-3d'
-            });
-            console.log('DateTimePicket');
-         
-        });
-
-        function setPickUpTime() {
-            var dateSelected = document.getElementById("datepicker").value;
-            var dt = new Date(dateSelected);
-            var today = new Date();
-            dt.setHours(0, 0, 0, 0);          
-        }
-
-
-        function validateInput() {           
-            var dt = document.getElementById("datepicker").value;            
-            if (dt.toString().length == 0) {
-                alert("Please select pickup date")
-                return false;
-            }
-           
-            else {
-                return true;
-            }
-        }</script>
-}

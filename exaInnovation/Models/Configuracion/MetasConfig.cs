@@ -19,9 +19,9 @@ namespace exaInnovation.Models.Configuracion
                 .WithOne(x => x.Metas)
                 .HasForeignKey(x => x.MetasId);
 
-            builder.Property<DateTime>("FechaCreacion")
-                    .HasDefaultValueSql("GetDate()")
-                    .HasColumnType("datetime2");
+            //builder.Property<DateTime>("FechaCreacion")
+            //        .HasDefaultValueSql("GetDate()")
+            //        .HasColumnType("datetime2");
 
         }
     }

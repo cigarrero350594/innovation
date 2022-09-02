@@ -50,28 +50,36 @@
                                     @Html.DisplayFor(m=>item.Porcentaje)
                                 </div>
                                 <div class="row">
-                                <div class="progress">
-                                    <div class="progress-bar" 
-                                            role="progressbar" 
-                                            style="width: @Html.DisplayFor(m=>item.Porcentaje);" 
-                                            aria-valuenow="@Html.DisplayFor(m=>item.Porcentaje)" 
-                                            aria-valuemin="0" 
-                                            aria-valuemax="100">@Html.DisplayFor(m=>item.Porcentaje)%</div>
+                                    <div class="progress">
+                                        <div class="progress-bar" 
+                                                role="progressbar" 
+                                                style="width: @Html.DisplayFor(m=>item.Porcentaje);" 
+                                                aria-valuenow="@Html.DisplayFor(m=>item.Porcentaje)" 
+                                                aria-valuemin="0" 
+                                                aria-valuemax="100">@Html.DisplayFor(m=>item.Porcentaje)%</div>
                              
-                                </div>
-                                    
+                                    </div>                                    
                                 </div>                                          
                             </div>
                         </p>    
-                        
-                        <button data-url='@Url.Action("Index","Tareas", new { id = item.Id } )'
-                            class="js-reload-details">Reload</button>
+
+@*                         <a id="TareasModulo"
+                            class="btn btn-primary" 
+                            data-id="@item.Id">
+                            <i class="fas fa-plus"></i> &nbsp;  Createasew </a>
+                            , new { id = item.Id }
+                              data-id="@item.Id"*@
+                         <button data-url='@Url.Action("Index","Tareas", new { id = item.Id } )'                                
+                                class="js-reload-details">Reload</button>
+
+                         
                         }
                     </div>
                     }
                   </div>
               </div>
-              <div class="col-4 col-sm-8 border backgroundWhite">                
+              <div class="col-4 col-sm-8 border backgroundWhite">    
+                  <partial name="_TareasHead" >
                 <div id="detailsDiv">                     
                 </div>
               </div>
@@ -92,6 +100,9 @@
 @section Scripts{  
     <script src="~/js/modalCreate.js" asp-append-version="true"></script>  
     <script>
+    $('#create').hide();
+    $('#edit').hide();
+    $('#delete').hide();
 
     $('.js-reload-details').on('click', function(evt) {
         evt.preventDefault();
@@ -99,9 +110,74 @@
 
         var $detailDiv = $('#detailsDiv'),
             url = $(this).data('url');
+            var id = $(this).attr('data-id');
+            console.log('URL: ' + url)
+            console.log('ESTO ES DATOS: ' + id);
+        $.get(url , function(data) {
+            $detailDiv.replaceWith(data);   
+            console.log('jsReload');
+            $('#create').show();
+            $('#edit').show();
+            $('#delete').show();
+        });
+    });
+  
 
-        $.get(url, function(data) {
-            $detailDiv.replaceWith(data);         
+     $('#TareasModulo').on('click', function(evt) {
+        //evt.preventDefault();
+        //evt.stopPropagation();
+         llamaIndiceTareas(this);
+  
+
+    });
+
+    function llamaIndiceTareas(reff) {
+        console.log('llamaIndiceTareas');
+            var url = '@Url.Content("~/")' + "Admin/Tareas/Index";            
+            var id = $(reff).attr('data-id');
+            console.log('ESTO ES DATOS: ' + id);
+        var $detailDiv = $('#detailsDiv');           
+            $.get(url + '/' + id).done(function (data) {
+                $detailDiv.replaceWith(data);   
+                  $('#create').show();
+                  $('#edit').show();
+                  $('#delete').show();
+            });
+    }
+
+
+
+
+
+   $(document).ready(function () {
+
+        $("#checkAll").click(function () {
+            $(".checkBox").prop('checked', 
+                $(this).prop('checked'));
+        });
+
+        $("#delete").click(function () {
+            var selectedIDs = new Array();
+            $('input:checkbox.checkBox').each(function () {
+                if ($(this).prop('checked')) {
+                    selectedIDs.push($(this).val());
+                }
+            });
+
+            var options = {};
+            options.url = "/home/delete";
+            options.type = "POST";
+            options.data = JSON.stringify(selectedIDs);
+            options.contentType = "application/json";
+            options.dataType = "json";
+            options.success = function (msg) {
+                alert(msg);
+            };
+            options.error = function () {
+                alert("Error while deleting the records!");
+            };
+            $.ajax(options);
+
         });
     });
     </script>
