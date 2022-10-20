@@ -1,0 +1,17 @@
+﻿@model int    
+<div class="btn-group" role="group">
+    @*       <a   id="ModulosIndex"
+                asp-controller="Tareas"
+                asp-action="Index"
+                class="btn btn-primary" 
+                asp-route-Id="@Model">
+                <i class="fas fa-plus">  View Task</i>
+           </a>*@
+           <a id="ModulosIndex"
+               data-url="Tareas/Index"
+                class="btn btn-primary js-reload-details" 
+                            
+                data-id="@Model">
+            <i class="fas fa-edit"></i>
+        </a>
+</div>

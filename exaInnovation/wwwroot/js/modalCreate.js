@@ -4,6 +4,7 @@
         function initialize() {
             console.log('Inicializa');
             $(".popup").on('click', function (e) {
+                console.log('Inicializar_popup');
                 modelPopup(this);
             });
 
@@ -31,11 +32,33 @@
                 
 
             }
+
+            $('#ModulosIndex').on('click', function (evt) {
+                //evt.preventDefault();
+                //evt.stopPropagation();
+
+                var $detailDiv = $('#detailsDiv'),
+                    url = $(this).data('url');
+                var id = $(this).attr('data-id');
+                console.log('URL: ' + url)
+                console.log('ESTO ES DATOS: ' + id);
+                $.get(url + '/' + id, function (data) {
+                    $detailDiv.replaceWith(data);
+                    console.log('jsReload');
+                    $('#create').show();
+                    $('#edit').show();
+                    $('#delete').show();
+                });
+            });
         }
 
         $this.init = function () {
             initialize();
         };
+
+
+
+
     }
     $(function () {
         var self = new Index();

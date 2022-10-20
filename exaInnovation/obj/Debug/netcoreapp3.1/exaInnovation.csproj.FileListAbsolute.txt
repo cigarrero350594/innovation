@@ -441,3 +441,7 @@ D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcore
 D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_EditAndBackToListButton.cshtml.g.cs
 D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TareasDetails.cshtml.g.cs
 D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TareasTableIndex.cshtml.g.cs
+D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TareasHead.cshtml.g.cs
+D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Tareas\_CreateTarea.cshtml.g.cs
+D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LaunchTask.cshtml.g.cs
+D:\ProyectosC\Desempleado_Hexaware\exaInnovation\exaInnovation\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Tareas\_EditTarea.cshtml.g.cs

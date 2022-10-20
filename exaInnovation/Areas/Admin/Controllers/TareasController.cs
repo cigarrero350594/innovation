@@ -26,7 +26,7 @@ namespace exaInnovation.Areas.Admin.Controllers
 
             };
         }
-
+        [ActionName("Index")]
         public async Task<IActionResult> Index(int ? id)
         {
             if (ModelState.IsValid)
@@ -37,13 +37,25 @@ namespace exaInnovation.Areas.Admin.Controllers
                 }
                 else
                 {
-                    metasViewModel._metas = await context.Metas
-                                            .Include(m => m.Tareas)
-                                            .SingleOrDefaultAsync(m => m.Id == id);
-                    Id = metasViewModel._metas.Id;
+                    //metasViewModel._metas = await context.Metas
+                    //                        .Include(m => m.Tareas)
+                    //                        .SingleOrDefaultAsync(m => m.Id == id);
+                    //
+
+                    metasViewModel._TareasList = await context.Tareas
+                                                        .Where(m => m.MetasId == id)
+                                                        .ToListAsync();
+                    //Id = id;
+
+                    if (id == null)
+                        Id = default(int);
+                    else
+                       Id = id.Value;
                 }
             }
-            return PartialView("_TareasTableIndex", metasViewModel);
+            JsonResult json = Json(metasViewModel._TareasList);
+            return json;
+           // return PartialView("_TareasTableIndex", metasViewModel);
         }
 
         public async  Task<IActionResult> Create()
@@ -73,22 +85,10 @@ namespace exaInnovation.Areas.Admin.Controllers
             return RedirectToAction("Index","Metas");
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public  IActionResult Edit(int ? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Metas metas = await context.Metas.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (metas == null)
-            {
-                return NotFound();
-            }
-
-
-            return PartialView("_EditTarea", metas);
+            return PartialView("_EditTarea",id);
         }
 
         [HttpPost, ActionName("Edit")]
@@ -99,43 +99,47 @@ namespace exaInnovation.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            Tareas tareas = await context.Tareas.FirstOrDefaultAsync(m => m.Id == id);
 
-            Metas metas = await context.Metas.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (metas == null)
+            if (tareas == null)
             {
                 return NotFound();
             }
+            tareas.Estado = "Terminado";
+            //tareas.Prioridad = "Terminado";
+            //context.Tareas.Remove(tareas);
+            await context.SaveChangesAsync();
+
 
             string nombre = Request.Form["Nombre"].ToString();
 
-            if (!nombre.Equals(metas.Nombre))
-                await context.SaveChangesAsync();
-            else
-            {
+            //if (!nombre.Equals(metas.Nombre))
+            //    await context.SaveChangesAsync();
+            //else
+            //{
 
-            }
+            //}
 
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            Metas metas = await context.Metas.SingleOrDefaultAsync(m => m.Id == id);
+        //    Metas metas = await context.Metas.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (metas == null)
-            {
-                return NotFound();
-            }
+        //    if (metas == null)
+        //    {
+        //        return NotFound();
+        //    }
 
 
-            return PartialView("_DeleteTarea", metas);
-        }
+        //    return PartialView("_DeleteTarea", metas);
+        //}
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -146,13 +150,13 @@ namespace exaInnovation.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Metas metas = await context.Metas.Include(m => m.Tareas).SingleOrDefaultAsync(m => m.Id == id);
+            Tareas tareas = await context.Tareas.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (metas == null)
+            if (tareas == null)
             {
                 return NotFound();
             }
-            context.Metas.Remove(metas);
+            context.Tareas.Remove(tareas);
             await context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

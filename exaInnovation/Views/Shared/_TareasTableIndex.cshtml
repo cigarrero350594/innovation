@@ -53,26 +53,7 @@
                 <th></th>
                 <th></th>
             </tr>
-            @foreach (var item in Model._metas.Tareas)
-            {
-            <tr>
-                <td><input type="checkbox" class="checkBox" 
-                        value="@item.Id" /></td>
-
-                <td>
-                            <input type="checkbox" id="checkBoxAll" class="custom-checkbox" />
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.FechaCreacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.Estado)
-                </td>                                                  
-            </tr>
-            }
+          
         </table>
     }
     else
@@ -87,41 +68,9 @@
         Modal 2
     </div>  
 </div>
- @section Scripts{  
-          <script src="https://code.jquery.com/jquery-3.3.1.js"
-              integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-              crossorigin="anonymous"></script>
-<script>
-$(function() {
-    $('.popup').on('click', function(evt) {
-        console.log('llamaIndiceCreate1');
-        llamaIndiceCreate(this);
-        console.log('llamaIndiceCreate');
-
-    });
-     function llamaIndiceCreate(reff) {
-       var url = $(reff).data('url');
-                var id = $(reff).attr('data-id');
-                console.log('Inicializar 1');
-                console.log(id);
-                if (id != null) {
-                    $.get(url + '/' + id).done(function (data) {
-                        console.log('Inicializa2');
-                        $('#modal-create-tarea').find(".modal-dialog").html(data);
-                        $('#modal-create-tarea> .modal', data).modal("show");
-                    });
-                }
-                else {
-                    $.get(url).done(function (data) {
-
-                        console.log('Inicializa3');
-                        $('#modal-create-tarea').find(".modal-dialog").html(data);
-                        $('#modal-create-tarea > .modal', data).modal("show");
-                    });
-                }
-    }
-}
-
-   
+@section Scripts{
+    <script>
+        
     </script>
- }
+     
+}

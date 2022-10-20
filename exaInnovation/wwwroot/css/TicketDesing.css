@@ -1,0 +1,125 @@
+﻿$base-color: #f8f9fa!important;
+
+span {
+    color: #444;
+}
+
+.support-container {
+    height: 14px;
+}
+
+.support {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.info-container {
+    padding: 5px;
+    height: 60px;
+    border-radius: 10px 0px 30px 0px;
+    .left {
+        width: 70%;
+        span {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+       }.trans-container {
+            width: 80%;
+            height: 17px;
+            border-radius: 10px 10px;
+            margin-left: 10px;
+            span {
+                color: white;
+                font-size: 9px;
+            }
+        }
+    }
+    .right {
+        width: 30%;
+    }
+
+}
+
+.time-container {
+    height: 25px;
+    width: 70%;
+    span {
+        color: black;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
+
+.check {
+    background: $base-color;
+}
+
+.no-check {
+    background: rgb(190, 190, 190);
+}
+
+
+.motivo-container {
+    height: 28px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0px 0px 0px 10px;
+    span
+
+{
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+}
+
+.evento-container {
+    width: 215px;
+    height: 110px;
+    border-radius: 4px 0px 25px 4px;
+    position: relative;
+}
+
+.folio-container {
+    height: 25px;
+    width: 30%;
+    border-radius: 0px 14px 14px 0px;
+    span
+
+{
+    color: white;
+    font-size: 13px;
+}
+
+}
+
+.iucircle {
+    font-size: 12px;
+    margin-right: 5px;
+    color: red;
+}
+
+.evento-container-shadow {
+    width: calc(215px - 4%);
+    height: 110px;
+    border-radius: 0px 0px 35px 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.main-div {
+    padding: 5px;
+    transition: all .3s;
+    border-radius: 3px 3px 25px 3px;
+}
+
+    .main-div:hover {
+        cursor: pointer;
+    }
+
+
+.selected-evento {
+    background: #00E0FF !important;
+}
